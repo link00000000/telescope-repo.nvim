@@ -178,12 +178,14 @@ local function call_picker(list_opts, command, prompt_title_supplement, user_opt
 
                     if type == "default" then
                         actions._close(prompt_bufnr, false)
+                        vim.cmd("cd " .. dir)
                         vim.schedule(function()
                             project_files(vim.tbl_extend("force", user_opts, { cwd = dir }))
                         end)
                     end
                     if type == "vertical" then
                         actions._close(prompt_bufnr, false)
+                        vim.cmd("cd " .. dir)
                         vim.schedule(function()
                             project_live_grep(vim.tbl_extend("force", list_opts, { cwd = dir }))
                         end)
@@ -192,6 +194,7 @@ local function call_picker(list_opts, command, prompt_title_supplement, user_opt
                     if type == "tab" then
                         vim.cmd("tabe " .. dir)
                         vim.cmd("tcd " .. dir)
+                        vim.cmd("cd " .. dir)
                         project_files(vim.tbl_extend("force", list_opts, { cwd = dir }))
                         return
                     end
